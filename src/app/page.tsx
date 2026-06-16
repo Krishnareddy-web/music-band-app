@@ -1,6 +1,6 @@
 "use client";
 
-import ThreeBackground from "@/components/ThreeBackground";
+
 import Navigation from "@/components/Navigation";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useSession } from "next-auth/react";
@@ -30,7 +30,7 @@ export default function Home() {
       "relative min-h-screen flex flex-col items-center justify-center transition-colors duration-500 overflow-hidden",
       mounted && theme === "dark" ? "bg-transparent text-white" : "bg-white text-black"
     )}>
-      <ThreeBackground />
+
       <Navigation />
 
       <div className="relative z-10 flex flex-col items-center text-center space-y-10 px-4 max-w-7xl mt-20">

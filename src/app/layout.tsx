@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   keywords: ["Devotional Music", "Ayyappa Swami", "Spiritual Band", "Bhajans", "Devotional Song Books"],
 };
 
-import StarField from "@/components/StarField";
+
 
 export default function RootLayout({
   children,
@@ -38,7 +38,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <StarField />
+
           <CustomCursor />
           <ActivityTracker />
           <div className="relative z-10 min-h-screen">
