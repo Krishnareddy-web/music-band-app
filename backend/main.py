@@ -25,6 +25,19 @@ class BookingCreate(BaseModel):
     eventId: str
     favoriteSongs: str = None
 
+class EventCreate(BaseModel):
+    title: str
+    date: datetime.datetime
+    venue: str
+    location: str
+    totalSeats: int = 100
+
+class UserCreate(BaseModel):
+    name: str = None
+    email: str = None
+    phone: str = None
+    role: str = "USER"
+
 @app.get("/")
 def read_root():
     return {"message": "Welcome to Dappu Srinu Python API"}
@@ -47,6 +60,46 @@ def create_booking(booking: BookingCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_booking)
     return new_booking
+
+@app.get("/api/events")
+def get_events(db: Session = Depends(get_db)):
+    return db.query(models.Event).all()
+
+@app.post("/api/events")
+def create_event(event: EventCreate, db: Session = Depends(get_db)):
+    import uuid
+    new_event = models.Event(
+        id=str(uuid.uuid4()),
+        title=event.title,
+        date=event.date,
+        venue=event.venue,
+        location=event.location,
+        totalSeats=event.totalSeats,
+        availableSeats=event.totalSeats
+    )
+    db.add(new_event)
+    db.commit()
+    db.refresh(new_event)
+    return new_event
+
+@app.get("/api/users")
+def get_users(db: Session = Depends(get_db)):
+    return db.query(models.User).all()
+
+@app.post("/api/users")
+def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    import uuid
+    new_user = models.User(
+        id=str(uuid.uuid4()),
+        name=user.name,
+        email=user.email,
+        phone=user.phone,
+        role=user.role
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
 
 if __name__ == "__main__":
     import uvicorn
